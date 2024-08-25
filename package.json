@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@fontsource/sarabun": "^5.0.21",
     "@material-tailwind/react": "^2.1.9",
     "next": "14.2.6",
     "react": "^18",
