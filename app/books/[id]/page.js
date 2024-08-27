@@ -1,44 +1,51 @@
 "use client";
 
-import React, { useEffect, useState } from 'react';
+import { Button, Card, CardBody, Typography } from "@material-tailwind/react";
+import React, { useEffect, useState } from "react";
 
-// ดึงข้อมูล params จาก props
 function Page({ params }) {
-  const { id } = params;  // ดึง id จาก params
+  // สร้างตัวแปรไว้รอรับข้อมูล
+  const [books, setBooks] = useState([]);
 
-  // ใช้ state เป็น book เพราะดึงข้อมูลหนังสือเพียงเล่มเดียว
-  const [book, setBook] = useState(null);
-
-  // ฟังก์ชันดึงข้อมูลหนังสือตาม ID
-  const getById = async () => {
-    try {
-      const response = await fetch(`http://localhost:8000/book/${id}`); // ใช้ id ใน URL
-      const result = await response.json();
-      console.log(result);
-      setBook(result.data);  // อัพเดทสถานะด้วยข้อมูลหนังสือที่อยู่ภายใน data
-    } catch (error) {
-      console.error("Error fetching book:", error);
-    }
+  const getBooks = async () => {
+    const json = await fetch("http://localhost:8000/book/" + params.id);
+    // ทำ ข้อมูล string จาก json ให้เป็น ข้อมูลแบบ Json
+    const data = await json.json();
+    // เซ็ตข้อมูลใหม่
+    setBooks(data);
   };
 
+  // สั่งให้ฟังชั่นทำงาน
   useEffect(() => {
-    getById();
+    getBooks();
   }, []);
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center py-2">
-      <h1 className="text-3xl font-bold">รายละเอียดหนังสือ</h1>
-      {/* ตรวจสอบว่ามีข้อมูลก่อนที่จะแสดง */}
-      {book ? (
-        <>
-          <p className="text-xl">ชื่อหนังสือ: {book.title}</p>
-          <p className="text-xl">ผู้แต่ง: {book.author}</p>
-          <p className="text-xl">ราคา: {book.price}</p>
-          <img src={book.image} alt={book.title} className="h-48 w-auto object-cover mt-4" />
-        </>
-      ) : (
-        <p className="text-xl">กำลังโหลดข้อมูลหนังสือ...</p>
-      )}
+      <h1 className="text-4xl font-bold">หนังสือ : {books?.data?.title}</h1>
+      <p className="text-2xl mb-4">By : {books?.data?.author}</p>
+
+      <div className="mt-8 w-full max-w-3xl">
+        <div className="grid grid-cols-2 gap-4">
+          <Card key={books?.data?.id} className="mb-4 overflow-hidden">
+            <img
+              src={books?.data?.image}
+              alt={books?.data?.title}
+              className="h-96 w-full object-cover"
+            />
+
+            <CardBody>
+              <Typography variant="h5">{books?.data?.title}</Typography>
+              <Typography variant="h6">
+                Author: {books?.data?.author}
+              </Typography>
+              <Typography variant="paragraph">
+                price: {books?.data?.price}
+              </Typography>
+            </CardBody>
+          </Card>
+        </div>
+      </div>
     </div>
   );
 }

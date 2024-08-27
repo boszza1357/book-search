@@ -41,7 +41,7 @@ export function Header() {
         </svg>
  
         <Link href="/" className="flex items-center">
-          Pages
+          หน้าหลัก
         </Link>
       </Typography>
       <Typography
@@ -65,7 +65,7 @@ export function Header() {
           />
         </svg>
         <Link href="/account" className="flex items-center">
-          Account
+          หนังสือของฉัน
         </Link>
       </Typography>
       <Typography
@@ -87,7 +87,7 @@ export function Header() {
           />
         </svg>
         <Link href="/search" className="flex items-center">
-          Search
+          ค้นหา
         </Link>
       </Typography>
       <Typography
@@ -111,7 +111,7 @@ export function Header() {
           />
         </svg>
         <Link href="/books" className="flex items-center">
-          Book All !
+          หนังสือทั้งหมด
         </Link>
       </Typography>
     </ul>
@@ -125,20 +125,22 @@ export function Header() {
           href="#"
           className="mr-4 cursor-pointer py-1.5 font-medium"
         >
-          Material Tailwind
+          เมนู
         </Typography>
         <div className="hidden lg:block">{navList}</div>
         <div className="flex items-center gap-x-1">
           <Button variant="text" size="sm" className="hidden lg:inline-block">
-            <span>Log In</span>
+            <span>เข้าสู่ระบบ</span>
           </Button>
+          <Link href="/register">
           <Button
             variant="gradient"
             size="sm"
             className="hidden lg:inline-block"
-          >
-            <span>Sign in</span>
+            >
+            <span>สมัครสมาชิก</span>
           </Button>
+            </Link>
         </div>
         <IconButton
           variant="text"
@@ -183,11 +185,13 @@ export function Header() {
           {navList}
           <div className="flex items-center gap-x-1">
             <Button fullWidth variant="text" size="sm" className="">
-              <span>Log In</span>
+              <span>เข้าสู่ระบบ</span>
             </Button>
+            <Link href="/register">
             <Button fullWidth variant="gradient" size="sm" className="">
-              <span>Sign in</span>
+              <span>สมัครสมาชิก</span>
             </Button>
+            </Link>
           </div>
         </div>
       </MobileNav>
